@@ -1,0 +1,272 @@
+\documentclass[10pt,a4paper,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,mathtools}
+\usepackage{color,graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{todonotes}
+
+% style
+\input{style.tex}
+
+% Shorthands
+\renewcommand{\bf}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\balpha}{\boldsymbol\alpha}
+\newcommand{\bbeta}{\boldsymbol\beta}
+\newcommand{\bdelta}{\boldsymbol\delta}
+\newcommand{\btheta}{\boldsymbol\theta}
+\newcommand{\bPhi}{\boldsymbol\Phi}
+\newcommand{\concept}[1]{\textcolor{RoyalBlue}{#1}} 
+\newcommand{\subconcept}[1]{\textcolor{PineGreen}{\textit{#1}}}
+
+% Allows to easily edit out parts that are dispensible
+\newcommand{\opt}[1]{#1}
+% Modifications in order to maximize information density
+\ifdefined \longversion % Nothing
+\else
+  % Hide optional content
+  \renewcommand{\opt}[1]{}
+  % Make titles smaller
+  \renewcommand{\section}[1]{
+    \vspace{-0.3cm}
+    \begin{center}
+      \color{Bittersweet}
+      \hrulefill{\small~~#1~~}\hrulefill
+    \end{center}
+    \vspace{-0.3cm}
+  }
+  \renewcommand{\subsection}[1]{\section{#1}}
+\fi
+
+\pdfinfo{
+  /Title (Information Theory and Coding)
+  /Creator (Lucile Madoulaud)
+  /Author (Lucile Madoulaud)
+  /Subject (Information Theory and Coding)
+  /Keywords (ITC, information, communication, theory, coding)
+}
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+\title{Information Theory and Coding}
+
+\raggedright
+\footnotesize
+\sffamily
+\begin{multicols*}{4}
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\opt {
+  \begin{center}
+  \Large{Information Theory and Coding}
+  \end{center}
+}
+
+% ----------
+\section{Source Coding}
+
+\concept{Introduction} Diagram of a general communication system.
+\subconcept{Discrete sources} output of the source is in discrete time and discrete valued.
+\subconcept{Source Coding} representation of information sources in bits.
+\subconcept{Source Code Function} $C:U\mapsto\{0,1\}^*=\{\emptyset,0,1,00,...\}$.
+
+\concept{Non-Singular Codes} TODO
+
+\concept{Uniquely Decodable Codes} TODO
+
+\concept{Prefix-Free Codes} TODO
+
+\concept{Kraft's Inequality for PF Codes} TODO
+
+\concept{Kraft's Inequality for extensions of codes} TODO
+
+\concept{Kraft's Inequality for uniquely decodable codes} TODO
+
+\concept{Reverse Kraft's inequality} TODO
+
+\concept{Expected codeword length} TODO
+
+
+% ----------
+\section{Entropy}
+
+\concept{Entropy as a lower-bound to the expected codeword length} TODO
+
+\concept{Existence of PF codes with average length at most entropy + 1} TODO
+
+\concept{Entropy of multiple random variables} TODO
+
+\concept{Properties of optimal codes} TODO
+
+\concept{Huffman procedure} TODO
+
+\concept{Equivalence of PF codes and strategy for guessing via binary questions} TODO
+
+\concept{Interpretation of entropy as expected number of questions for guessing the random variable} TODO
+
+% --------
+\section{Mutual Information}
+
+\concept{Conditional Entropy and Mutual Information} TODO
+
+\concept{Chain Rules for entropy and mutual information} TODO
+
+\concept{Review of Markov Chain} TODO
+
+\concept{Data Processing Inequality} TODO
+
+\concept{Entropy Rate} TODO
+
+\concept{Entropy Rate of Stationary Processes} TODO
+
+\concept{Coding Theorem for Stationary Sources} TODO
+
+\concept{Fixed-to-Fixed Length Source Codes} TODO
+
+% ------------
+\section{Typicality}
+
+\concept{Typicality} TODO
+
+\concept{Properties of Typical Sets} TODO
+
+\concept{Asymptotic Equipartition Property} TODO
+
+\concept{Source Coding by AEP} TODO
+
+\concept{Variable-to-Fixed Length Source Codes} TODO
+
+\concept{Valid and Prefix-Free Dictionaries} TODO
+
+\concept{Relationship between word- and letter-entropies for valid, prefix-free dictionaries} TODO
+
+% --------------
+\section{Tunstall procedure}
+
+\concept{Tunstall procedure} TODO 
+
+\concept{Analysis of Tunstall procedure} TODO
+
+\concept{Universal Source Coding} TODO
+
+\concept{Lempel–Ziv method} TODO 
+
+\concept{Analysis of Lempel–Ziv} TODO
+
+\concept{Information-Lossless FSM Compressors} TODO
+
+\concept{Lower bound on the output length of an IL FSM Compressor} TODO
+
+\concept{LZ Compressibility of sequences} TODO
+
+\concept{Optimality of Lempel–Ziv} TODO
+
+% -----------
+\section{Channels}
+
+\concept{Communication Channels} TODO
+
+\concept{Discrete Memoryless Channels} TODO
+
+\concept{Examples of Discrete Memoryless Channels (BSC and BEC)} TODO
+
+\concept{Transmission with or without feedback} TODO
+
+\concept{Channel Capacity} TODO
+
+\concept{Fano's Inequality} TODO
+
+\concept{Converse to the Channel Coding Theorem	} TODO
+			
+\concept{Proof of the Channel Coding Theorem} TODO
+
+\concept{Capacity of BSC and BEC } TODO
+
+\concept{Jensen's Inequality } TODO
+
+\concept{Concavity of Mutual Information in Input Distribution} TODO
+ 
+\concept{KKT Conditions} TODO
+
+\concept{KKT Conditions (cont'd)} TODO
+ 
+\concept{Application of KKT: Capacity of Z Channel} TODO
+ 
+\concept{Continuous Alphabet: Differential Entropy} TODO
+
+\concept{Properties of differential entropy} TODO
+ 
+\concept{Entropy-typical seqeuences} TODO
+ 
+\concept{Quantization} TODO
+ 
+\concept{Entropy of Gaussian distribution} TODO
+
+\concept{Capacity under cost constraint} TODO
+ 
+\concept{Capacity of AWGN} TODO
+ 
+\concept{Converse to the channel coding theorem with cost constraint} TODO
+ 
+\concept{Parallel Gaussian channels (water-filling)} TODO
+
+\concept{Proof of Channel Coding Theorem for general channels via Threshold Decoding} TODO
+
+\concept{Channel Codes} TODO
+ 
+\concept{Minimum Distance} TODO
+ 
+\concept{Singleton Bound} TODO
+ 
+\concept{Sphere-packing Bound} TODO
+ 
+\concept{Gilbert–Varshamov Bound} TODO
+
+\concept{Linear Codes} TODO
+ 
+\concept{Generator Matrix} TODO
+ 
+\concept{Parity-check Matrix} TODO
+ 
+\concept{Hamming Codes} TODO
+
+\concept{Reed–Solomon Codes} TODO
+
+\concept{Polar Codes} TODO
+
+% ---------- Page break
+\ifdefined \longversion % Nothing
+\else \newpage
+\fi
+
+
+
+% ---------- Credits
+\section{Credits}
+Most content taken from the lecture notes of Emre Telatar's \href{http://ipg.epfl.ch/doku.php?id=en:courses:2015-2016:itc}{Information Theory and Coding class} at EPFL, 2015.
+
+% ---------- Footer
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+\tiny
+Rendered \today. Written by Lucile Madoulaud.
+
+\end{multicols*}
+\end{document}
