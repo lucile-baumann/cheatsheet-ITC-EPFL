@@ -81,40 +81,81 @@
 % ----------
 \section{Source Coding}
 
-\concept{Introduction} Diagram of a general communication system.
+\concept{Introduction}
+Diagram of a general communication system.
 \subconcept{Discrete sources} output of the source is in discrete time and discrete valued.
 \subconcept{Source Coding} representation of information sources in bits.
 \subconcept{Source Code Function} $C:U\mapsto\{0,1\}^*=\{\emptyset,0,1,00,...\}$.
 
-\concept{Non-Singular Codes} TODO
+\concept{Non-Singular Codes} 
+A code $C$ is \subconcept{singular} if $\exists u \neq v /\ C(u)=C(v)$. A code $C$ is \subconcept{non-singular} if it is not singular.
+With a code $C$ define for a positive integer $n$ :
+$C^n:U^n\mapsto\{0,1\}^*$ as $C^n(u_1,u_2,...,u_n)=C(u_1)C(u_2)...C(u_n)$
+$C^*:U^*\mapsto\{0,1\}^*$ as $C^*(u_1u_2...u_n)=C(u_1)C(u_2)...C(u_n)$
 
-\concept{Uniquely Decodable Codes} TODO
+\concept{Uniquely Decodable Codes}
+A code $C$ is said to be \subconcept{uniquals decodable} if $C^*$ is non-singular.We want our codes to be uniquals decodable.
 
-\concept{Prefix-Free Codes} TODO
+\concept{Prefix-Free Codes} 
+A sequence $u_1,... u_n$ is a \subconcept{prefix} of $v_1,...,v_n$ if $n \geqslant m /\ u_1=v_1,...,u_m=v_m$.
+A code $C$ is said to be \subconcept{prefix-free} if $\forall u \neq v$ $C(u)$ is not a prefix of $C(v)$.
 
-\concept{Kraft's Inequality for PF Codes} TODO
+\subconcept{Theorem} A prefix-free code is uniquely decodable.
+(In a binary-tree representation of a PF code all codewords are found on the leaves).
 
-\concept{Kraft's Inequality for extensions of codes} TODO
+\concept{Kraft's Inequality for PF Codes} 
+\subconcept{Theorem}
+If $C$ is PF then 
+$Kraftsum(C) \triangleq \sum_{u \in U }2^{-length(C(u))} \le 1$.
+\subconcept{Proposition} $Kraftsum(C^n)=\left[ Kraftsum(C) \right]^n$.
 
-\concept{Kraft's Inequality for uniquely decodable codes} TODO
+\concept{Kraft's Inequality for extensions of codes} 
+\subconcept{Proposition} Suppose $C:U\mapsto\{0,1\}^*$ is a non-singular code then $Kraftsum(C) = \sum_{u \in U }2^{-length(C(u))} \le 1 + max\left[ length(C(u)) \right]$
 
-\concept{Reverse Kraft's inequality} TODO
+\concept{Kraft's Inequality for uniquely decodable codes}
+\subconcept{Theorem} If $C$ is a uniquely decodable code then $Kraftsum(C) \le 1$.
+\subconcept{Corollary} If $C$ is a uniquely decodable code then there exists a PF code $C'$ such that $length(C(u)) = length(C'(u))$.
 
-\concept{Expected codeword length} TODO
+\concept{Reverse Kraft's inequality}
+\subconcept{Theorem} Given an alphabet $U$ and a function $l:u \mapsto \{0,1,2,3,...\} /\ \sum_{u \in U }2^{-length(C(u))} \le 1$ then there exist a PF code $C:U\mapsto\{0,1\}^* /\ \forall u \in U$ $length(C(u))=l(u) $ 
 
+
+\concept{Sources} A source producer a sequence $u_1,u_2,u_3,...$ each $u_i \in U$ being random variables.
+A \subconcept{memory-less} source is one where $u_1,u_2,...$ are independent.
+A \subconcept{stationary} source is one where each $(u_i,...,u_{i+n-1})$ has the same statistics as $(u_1,...,u_n)$ for each $i$ and each $n$.
+A memory-less and stationary source is equivalent to $u_1,u_2,...$ are \subconcept{independent, identically distributed (iid)}.
+
+\concept{Expected codeword length}
+$E\left[ length(C(u)) \right]$ average number of bits/letter the code uses to represent the source. We want to minimize it and $C$ to be uniquely decodable.
 
 % ----------
+
 \section{Entropy}
+\subconcept{Lemma} $ln(z)\le z^{-1}$ with eq if $z=1$.
+\subconcept{Property} $0 \le H(U) \le log |U|$
+\concept{Entropy as a lower-bound to the expected codeword length} 
+\subconcept{Theorem} For any uniquely decodable code $C$ for a source $U$, we have $E\left[ length(C(u)) \right] \ge \sum_{u}p(u)log_2 \frac{1}{p(u)} \triangleq H(u)$
 
-\concept{Entropy as a lower-bound to the expected codeword length} TODO
+\concept{Existence of PF codes with average length at most entropy + 1}
+\subconcept{Theorem} Given source $U$ there exists a PF code $C$ s.t. 
+$E\left[ length(C(u)) \right] \ge H(u)+1$
+ 
+\concept{Entropy of multiple random variables} 
+\subconcept{Property} Suppose $U$ and $V$ are ind. RV.
+Then $H(UV)=H(U)+H(V)$.
+\subconcept{Observe} Suppose we have $U_1U_2...$ iid. If we use a code $C$ to represent $n$ letters at time., we will have $H(U_1...U_n) \le E\left[ length(C(U_1...U_n)) \right] \le H(U_1...U_n)+1$.
+\subconcept{Also} $\frac{1}{n} H(U_1...U_n) = H(U_1)$ (iid of U).
 
-\concept{Existence of PF codes with average length at most entropy + 1} TODO
+\concept{Properties of optimal codes} 
+\subconcept{1} If $p(u) < p(v)$ then $l(u) \ge l(v)$.
+\subconcept{2} In an optimal PF code there are more than 2 longest codewords. If not the longest codeword can be shortered without violating the PF condition.
+\subconcept{3} Among optimal codes, there is one for the two least probable symbols are siblings.
 
-\concept{Entropy of multiple random variables} TODO
-
-\concept{Properties of optimal codes} TODO
-
-\concept{Huffman procedure} TODO
+\concept{Huffman procedure} 
+Procedure to design the optimal code.
+\subconcept{1} Given prob $p_1,p_2,...,p_{k-1},p_k$. Start with the two smallest prob.
+\subconcept{2} Group them together as the binary descendant of a node.
+\subconcept{3} Repeat until one node is left.
 
 \concept{Equivalence of PF codes and strategy for guessing via binary questions} TODO
 
@@ -123,19 +164,44 @@
 % --------
 \section{Mutual Information}
 
-\concept{Conditional Entropy and Mutual Information} TODO
+\concept{Conditional Entropy and Mutual Information} 
+\subconcept{Conditional Entropy} $H(U|V=v)=\sum_{u}p(u|v)log \frac{1}{p(u|v)}$
+$H(U|V)=\sum_{v}p(v)H(U|V=v)$.
+\subconcept{Conjecture} $H(U|V) \le H(U)$.
+\subconcept{Mutual Information} $I(U;V)=H(U)+H(V)-H(UV)$ is the saving in the number of questions to given $U$ by the knowledge of $V$.
+\subconcept{Lemma} Suppose $W$ is an alphabet and $p$ and $q$ are two prob distribution in W. Then, $\sum_{w}p(w)log \frac{p(w)}{q(w)} \ge 0$ with eq. iff $p=q$.
+\subconcept{Theorem} $I(U;V)\ge 0$ with eq iff $U$ and $V$ are independent.
+\subconcept{Conditional Mutual Information} 
+$I(U;V|W)=H(U|W)+H(V|W)-H(UV|W)=H(U|W)-H(U|VW)=H(V|W)-H(V|UW)$
+\subconcept{Theorem} $I(U;V|W)\ge 0$ with eq. iff $U$,$V$ are independent conditional in $W$ $\equiv U - V - W$.
+% find the markov chain symbol
 
-\concept{Chain Rules for entropy and mutual information} TODO
+\concept{Chain Rules for entropy and mutual information} 
+\subconcept{Theorem} $H(UV)=H(U)+H(V|U)=H(V)+H(U|V)$
+\subconcept{Theorem} $H(U_1...U_n)=H(U_1)+H(U_2|U_1)+...+H(U_n|U_1...U_{n-1})$
+\subconcept{Theorem} $I(U_1...U_n,V)=I(U_1;V)+...+I(U_n;V|U_1...U_{n-1})$
+ 
+\concept{Review of Markov Chain} 
+Suppose $X$,$Y$,$Z$ are RVs. We can write $p(xyz)=p(x)p(y|x)p(z|xy)$.
+Because $p(y|x)=\frac{p(xy)}{p(x)}$.
+If $X-Y-Z$ then $p(xyz)=p(x)p(y|x)p(z|y)$. 
+Suppose $U_1-U_2-...-U_n$ then $H(U_1...U_n)=H(U_1)+H(U_2|U_1)+...+H(U_n|U_{n-1})$
 
-\concept{Review of Markov Chain} TODO
+\concept{Data Processing Inequality} 
+\subconcept{Theorem} Suppose $U-V-W$ then $I(U;W) \le I(U;V)$
+\subconcept{Corollary} If $U-V-W$ then $I(U;W) \le I(V;W)$.
+\subconcept{Corollary} If $U-V-W-X$ then $I(U;X) \le I(V;W)$.
+$I(UV;W)=I(U;W)+I(V;W|U)=I(V;W)+I(U;W|V)$.
 
-\concept{Data Processing Inequality} TODO
+\concept{Entropy Rate}
+Given a stochastic process $U_1,U_2...$ we define its \subconcept{entropy rate}
+$H(U)=\lim_{n \to \infty} \frac{1}{n}H(u_1...u_n)$ if the limit exists.
 
-\concept{Entropy Rate} TODO
+\concept{Entropy Rate of Stationary Processes} 
+\subconcept{Theorem} If $u_1,u_2,...$ is stationary process, then the entropy rate exists and $\lim_{n \to \infty} \frac{1}{n}H(u_1...u_n) = \lim_{n \to \infty}H(u_n|u_1...u_{n-1})$
 
-\concept{Entropy Rate of Stationary Processes} TODO
-
-\concept{Coding Theorem for Stationary Sources} TODO
+\concept{Coding Theorem for Stationary Sources} 
+\subconcept{Theorem} If 
 
 \concept{Fixed-to-Fixed Length Source Codes} TODO
 
