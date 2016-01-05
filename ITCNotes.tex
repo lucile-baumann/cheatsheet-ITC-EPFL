@@ -296,23 +296,47 @@ Then, $\sum_{i=1}^m a_i log \frac{a_i}{8} \ge k log \frac{k}{8m}$ (with eq. for 
 
 \concept{Communication Channels} 
 \subconcept{Def}
-$C=max_{P_X} I(X;Y)$.
 $P_{e,i}=Pr(U_i \neq V_i)$. 
 $\bar{P_e}=\frac{1}{L} \sum_{i=1}^L Pr(U_i \neq V_i)$
 
 \concept{Discrete Memoryless Channels} 
 A channel is said to be \subconcept{memoryless} if $Pr(Y_i=y|X_i=x_i,past)=Pr(Y_i=y|X_i=x_i)$
+
+\subconcept{Encoder} function $f:{1,...,M} \to \mathcal{X}^n$.
+
+\subconcept{Decoder} function $\Phi:\mathcal{Y}^n \to \{1,...,M\}$.
+
 \subconcept{Recall} $h_2(\alpha)=\alpha log( \frac{1}{\alpha})+(1-\alpha) log (\frac{1}{1-\alpha})$.
+
 \subconcept{Theorem "Bad news"} No matter how the encoder and decoder are designed, we have $h_2(\bar{P_e})+P_e log(|U|-1) \ge \tau_s (\frac{H}{\tau_s}-\frac{C}{\tau_c})$.
+Or if $R>C$ we show that any design with $rate \ge R$, we can't make bot error prob closer to 0 then some $\delta (C,R)>0$.
+
 \subconcept{Lemma} $h_2(\frac{1}{L} \sum_{i=1}^L p_i) \ge \frac{1}{L}\sum_{i=1}^L h_2(p_i)$
+
+\subconcept{Rate} $rate(f)=R=\frac{k}{n} \equiv R=\frac{log M}{n}$
+
+
+\subconcept{Probability of error} $P_{e,i}= Pr(\Phi(Y_1...Y_n) \neq i | (X_1...X_n)=f(i))$.
+
+\subconcept{Average prob. of error} $P_{e,avg}=\frac{1}{M}\sum_{i=1}^M P_{e,i}$.
+
+\subconcept{Maximal prob. of error} $P_{e,max}=max_{1 \le i \le M} P_{e,i}$.
+
 
 \concept{Examples of Discrete Memoryless Channels (BSC and BEC)} TODO
 
 \concept{Transmission with or without feedback} TODO
 
-\concept{Channel Capacity} TODO
+\concept{Channel Capacity} 
+$C=max_{P_X} I(X;Y)$ with $I(X;Y)=H(X)-H(X|Y)$.
 
-\concept{Fano's Inequality} TODO
+\subconcept{Theorem} Given a channel $P(y|x)$ with $C=max I(X;Y)$ then any $R<C$ is achievable.
+
+\concept{Fano's Inequality}
+Suppose $U$ and $V$ RVs taking values in set $\mathcal{U}$. Let $P_{e,i}=Pr(U_i|V_i)$, then $H(U_i|V_i) \le h_2(P_{e,i})+P_{e,i} log(|\mathcal{U}|-1)$.
+
+\subconcept{Theorem "Good news"} If $\frac{H}{\tau_s}<\frac{C}{\tau_c}$ can achieve $\bar{P_e}\to 0$. 
+Or if $R<C, \varepsilon > 0$ then there exists an Enc/Dec s.t. $rate \ge R, P_{e,max}<\varepsilon$
 
 \concept{Converse to the Channel Coding Theorem	} TODO
 			
@@ -320,58 +344,179 @@ A channel is said to be \subconcept{memoryless} if $Pr(Y_i=y|X_i=x_i,past)=Pr(Y_
 
 \concept{Capacity of BSC and BEC } 
 \subconcept{Binary Symmetric Channel}
-$p(y|x)=
- \{
-   \begin{array}{r c l}
-      1-\delta , x=y \\
-      \delta, else 
+$\mathcal{X}=\mathcal{Y}=\{0,1\}$.
+$p(y|x)= \{
+   \begin{array}{l l}
+      1-\delta & ,x=y \\
+      \delta & ,else 
    \end{array}$
-If we choose $p_X=(\frac{1}{2},\frac{1}{2})$
+$I(X;Y)=H(Y)-H(Y|X)=H(Y)-h_2(\delta) \le 1-h_2(\delta)$.
+If we choose $p_X=(\frac{1}{2},\frac{1}{2})$ then $p_Y=(\frac{1}{2},\frac{1}{2})$.
+So $C=1-h_2(\delta)$ bits.
 
+\subconcept{Binary Erasure Channel}
+$\mathcal{X}=\{0,1\}$ and $\mathcal{Y}=\{0,1,e\}$.
+$p(y|x)=\{
+   \begin{array}{l l}
+      1-\varepsilon & ,x=y \\
+      \varepsilon & ,y=e 
+   \end{array}$
+$I(X;Y)=H(X)-H(X|Y)=(1-\varepsilon)H(X) \le 1-\varepsilon$.
+If we choose $p_X=(\frac{1}{2},\frac{1}{2})$.
+So $C=1-\varepsilon$ bits.
 
-\concept{Jensen's Inequality } TODO
+\concept{Recall convexity concavity}
+$f$ is \subconcept{convex} if $\forall x_1 \in D, \forall x_2 \in D, \forall \theta \in [0,1]$
+$f(\theta x_1 + (1-\theta)x_2) \le \theta f(x_1)+ (1-\theta)f(x_2)$.
 
-\concept{Concavity of Mutual Information in Input Distribution} TODO
- 
-\concept{KKT Conditions} TODO
+$f$ is \subconcept{concave} if $\forall x_1 \in D, \forall x_2 \in D, \forall \theta \in [0,1]$
+$f(\theta x_1 + (1-\theta)x_2) \ge \theta f(x_1)+ (1-\theta)f(x_2) \Leftrightarrow -f$ is convex.
 
-\concept{KKT Conditions (cont'd)} TODO
- 
-\concept{Application of KKT: Capacity of Z Channel} TODO
- 
-\concept{Continuous Alphabet: Differential Entropy} TODO
+$f$ is \subconcept{linear} if $\forall x_1 \in D, \forall x_2 \in D, \forall \theta \in [0,1]$
+$f(\theta x_1 + (1-\theta)x_2) = \theta f(x_1)+ (1-\theta)f(x_2)$.
 
-\concept{Properties of differential entropy} TODO
- 
-\concept{Entropy-typical seqeuences} TODO
- 
-\concept{Quantization} TODO
- 
-\concept{Entropy of Gaussian distribution} TODO
+\subconcept{Properties}
+1. If $f_1,f_2$ convex and $C_1,C_2$ non negative then $f(x)=C_1f_1(x)+C_2f_2(x)$ convex.
+2. Any local minimum is a global minimum.
+3. Tangent line lies below function.
+4. $g$ convex and $h$ linear $\Rightarrow g(h(x))$ convex.
 
-\concept{Capacity under cost constraint} TODO
- 
-\concept{Capacity of AWGN} TODO
- 
-\concept{Converse to the channel coding theorem with cost constraint} TODO
- 
-\concept{Parallel Gaussian channels (water-filling)} TODO
+\concept{Jensen's Inequality }
+\subconcept{Theorem} If $f$ is convex and $X$ anx RV on $D$
+then $f(E[X]) \le E[f(X)]$. (idem concavity $\ge$).
 
-\concept{Proof of Channel Coding Theorem for general channels via Threshold Decoding} TODO
+\concept{Concavity of Mutual Information in Input Distribution}
+\subconcept{Theorem} Fix $p(y|x)$, $I(p_X)=I(X;Y)$ is concave.
+ 
+\concept{KKT Conditions} 
+\subconcept{Def} $(P_1,...,P_k)$ satisfies KKT if $\exists \lambda$ s.t.
+$\forall i, \frac{\partial f}{\partial p_i} = \lambda$ for $p_i >0$ and
+$\frac{\partial f}{\partial p_i} \le \lambda$ for $p_i=0$.
 
-\concept{Channel Codes} TODO
- 
-\concept{Minimum Distance} TODO
- 
-\concept{Singleton Bound} TODO
- 
-\concept{Sphere-packing Bound} TODO
- 
-\concept{Gilbert–Varshamov Bound} TODO
+\subconcept{Theorem} For concave differentiable $f(P_i)$,
+$(P_1,...,P_k) \in argmax_{\sum P_i = 1 , P_i \ge 0} f(P_1,...,P_k)$
+iif it satisfies the KKT conditions.
 
-\concept{Linear Codes} TODO
+\concept{KKT Conditions (cont'd)}
+\subconcept{Theorem} $p(x) \in argmax I(X;Y)$ iif $\exists \lambda$ s.t. 
+$\forall x \sum_y p(y|x) log (\frac{p(y|x)}{p(y)}) \le \lambda$.
+With eq. for $p(x)>0$, if so then $C=\lambda$.
+
+\concept{Application of KKT: Capacity of Z Channel} 
+\subconcept{Capacity} $C=log(1+2^{-\frac{h_2(\delta)}{1-\delta}})=\lambda$
+$p_x^*(0)=1-\frac{1}{(1-\delta)(1+2^{-\frac{h_2(\delta)}{1-\delta}})}$
  
-\concept{Generator Matrix} TODO
+\concept{Continuous Alphabet: Differential Entropy}
+
+\subconcept{$h(X)$} = $E[-log f_X(X)] = -\int f_X(x) log(f_X(x)) dx$.
+
+\subconcept{$h(Y|X)$} = $-E[log f_{X|Y}(X|Y)]$.
+
+\subconcept{$h(X,Y)$} = $E[-log f_{X Y}(X,Y)]$.
+
+\subconcept{$D(f||g)$} = $E_f[log \frac{f_X(X)}{g_X(X)}]
+= \int f_X(x) log \frac{f_X(x)}{g_X(x)} dx$.
+
+\subconcept{$I(X;Y)$} = $D(f_{X Y}||f_X f_Y) 
+= \int \int f_{X Y}(x,y) log \frac{f_{Y|X}(y|x)}{f_Y(y)} dxdy$
+
+\concept{Properties of differential entropy}
+
+\subconcept{1.} $I(X;Y)=h(X)-h(X|Y)=h(Y)-h(Y|X)$.
+
+\subconcept{2.} $D(f||g) \ge 0$ with eq for $f=g$.
+
+\subconcept{3.} $I(X;Y) \ge 0$ with eq for $X$ and $Y$ indepdt.
+
+\subconcept{4.} Conditioning reduces $h$:
+$h(X|Y) \le h(X)$ with eq for $X$ and $Y$ indepdt.
+
+\subconcept{5.} Chain Rule : $h(X_1,...,X_n)=h(X_1)+h(X_2|X_1)+...+h(X_n|X_1...X_{n-1})$.
+
+\subconcept{6.} $h(X_1,...,X_n) \le \sum_{i=1}^n h(X_i)$.
+ 
+\concept{Entropy-typical sequences}
+\subconcept{Discrete} $|T^n(\varepsilon)|=2^{n(H(X)+\delta(\varepsilon))}$.
+\subconcept{Continuous} $Vol(T^n(\varepsilon))=2^{n(h(X)+\delta(\varepsilon))}$.
+$P[X \in T^n(\varepsilon)] \xrightarrow[n \to \infty]{} 1$.
+
+\subconcept{Theorem} $\lim_{\vartriangle \to 0} (H(X_\vartriangle) + log \vartriangle) = h(X)$.
+ 
+\concept{Quantization} 
+\subconcept{Theorem} 
+$I(X_\vartriangle);Y_\vartriangle) \xrightarrow[\vartriangle \to 0]{} I(X;Y)$
+
+\concept{Entropy of Gaussian distribution}
+\subconcept{Gaussian X} We have $\mathcal{X} \sim N(0,\sigma^2)$ and $f_X(x)=\frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{x^2}{2\sigma^2}}$.
+Then $h(X)=E[-log_e f_X(X)]=\frac{1}{2} log_e(2\pi e \sigma^2) Nats 
+= \frac{1}{2} log_2(2\pi e \sigma^2) Bits$.  
+\subconcept{Theorem "Maximal entropy"} If $Var[X] = \sigma^2$, then 
+$h(X) \le \frac{1}{2} log(2\pi e \sigma^2)$ with eq for $X \sim N(\mu,\sigma^2)$ for some $\mu$.
+
+\concept{Capacity under cost constraint}
+$C(P)=max_{f_X:E_f[b(X)] \le P} I(X;Y)$
+ 
+\concept{Capacity of AWGN : Additive White Gaussian Noise} 
+ $Y=X+Z$, $Z\sim N(0,\sigma^2)$.
+ $C(P)=\frac{1}{2} log (1+\frac{P}{\sigma^2})$
+ 
+\concept{Converse to the channel coding theorem with cost constraint}
+\subconcept{Theorem} If $\frac{H}{\tau_s} > \frac{C(P)}{\tau_c}$, (any code with $\sum_{u} [p(u) \frac{1}{n} \sum_{i=1}^n b(x_{i}^{u} \le P)$) has a bit error rate $\bar{P_e} \mathbb{9} 0$ which can't be arbitrarily small. 
+
+\subconcept{Lemma} $\sum_{i=1}^n I(X_i;Y_i) \le n C(P)$.
+ 
+\concept{Parallel Gaussian channels (water-filling)}
+With KKT $\exists \lambda$... so $P_i = max \{0,\lambda-\sigma_{i}^2\}$. Choose $\lambda$ so that $\sum_{i=1}^k P_i = P$. Indeed, $\lambda$ : waterlevel and shaded areas : $P_i$.
+
+\concept{Proof of Channel Coding Theorem for general channels via Threshold Decoding} 
+\subconcept{Theorem} $\forall R < C(P), \forall \varepsilon >0, \exists n \exists code$ with $ \forall m, \frac{1}{n} \sum_{i=1}^n b(X_{i}^{(n)}) \le P$ and $P_{max} \le \varepsilon$.
+$P_{max}=max_m P[error|m]$
+$P_{avg}=\frac{1}{M} \sum_{m_1}^M P[error|m]$.
+
+\subconcept{Corollary} If $\frac{H}{\tau_s}<\frac{C(P)}{\tau_c}$ can achieve $\bar{P_e} \to 0$.
+
+\section{Distances}
+\concept{Channel Codes}
+Code for \subconcept{BSC}: $M=2^{nR}$.
+Given the code we see $(n,n R)$ as visible parameters.
+ 
+\concept{Minimum Distance}
+\subconcept{Hamming distance} $d_H(\bar{x},\bar{y})=\#\{i:y_i\neq x_i\}$ so maximum-likehood $\equiv$ minimum distance.
+\subconcept{minimum distance of C to these parameters} $d=d_H(C)= min_{x,x' \in C, x \neq x'} d_H(x,x')$.
+
+\subconcept{Hamming ball} with center $\bar{x}$ and radius $r$ :$B(\bar{x},r)=\{\bar{y} \in \{0,1\}^n : d_H(\bar{y},\bar{x}) \le r\}$.
+Also note $|B(\bar{x},r)|=1+\binom{n}{1}+...+\binom{n}{r}$
+
+\subconcept{Theorem} Given $\bar{x},\bar{y},\bar{z} \in \{0,1\}^n$.
+$d_H(\bar{x},\bar{y}) \ge 0$ with eq if $\bar{x}=\bar{y}$.
+$d_H(\bar{x},\bar{y}) = d_H(\bar{y},\bar{x})$.
+$d_H(\bar{x},\bar{z}) \le d_H(\bar{x},\bar{y}) + d_H(\bar{y},\bar{z})$.
+
+\subconcept{Corollary} Suppose $\bar{x},\bar{x'} \in \{0,1\}^n$ with $d=d_H(\bar{x},\bar{x'})$. Set $r=\lfloor \frac{d-1}{2} \rfloor$.
+Consider $B(\bar{x},r)$ and $B(\bar{x'},r)$ then they are disjoint.
+
+\concept{Singleton Bound (Bad news)}
+If $\# of codewords = M > 2^k$ then $d_{min} \le n-k$.
+ 
+\concept{Sphere-packing Bound (Bad news)}
+Suppose $C \subset \{0,1\}^n$ is a binary code with $M$ codewords and $d=d_{min}$.
+Then, $M \left[ \sum_{i=0}^{r=\lfloor \frac{d-1}{2} \rfloor} \binom{n}{i} \right] \le 2^n $.
+
+\concept{Gilbert–Varshamov Bound (Good news)}
+For every $(n,M,d)$ satisfy
+$d_{min}=d$ and $M \left[ \sum_{i=0}^{d-1} \binom{n}{i} \right] \ge 2^n $
+there exists a code $C \subset \{0,1\}^n$ with $\ge M$ codewords and $d_{min}(C) \ge d$.
+
+\concept{Linear Codes}
+A code $C \subset \{0,1\}^n$ is said to be \subconcept{linear} if $x,y \in C$ then $x+y \in C \equiv C$ is a vector space in $\{0,1\}^n$.
+ 
+\concept{Generator Matrix}
+\subconcept{Fact 1} If $C$ is a linear code, then $|C|=2^k$ for some int $k$ and there exists a $k\times n$ binary matrix $G$ s.t.
+$C=\{[u_1...u_k] G:(u_1...u_k) \in \{0,1\}^k\}$
+$\equiv C$ is a raw space of $G$.
+
+\subconcept{Fact 2} If $C$ is linear, say with generator matrix 
+$G(k \times n)$ the enc. doesn't need to store all $2^k$ codewords.
  
 \concept{Parity-check Matrix} TODO
  
