@@ -201,54 +201,110 @@ $H(U)=\lim_{n \to \infty} \frac{1}{n}H(u_1...u_n)$ if the limit exists.
 \subconcept{Theorem} If $u_1,u_2,...$ is stationary process, then the entropy rate exists and $\lim_{n \to \infty} \frac{1}{n}H(u_1...u_n) = \lim_{n \to \infty}H(u_n|u_1...u_{n-1})$
 
 \concept{Coding Theorem for Stationary Sources} 
-\subconcept{Theorem} If 
+\subconcept{Theorem} If $U_1,U_2,...$ is a stationary process with entropy rate H, then $\forall \varepsilon > 0$ there exists a source code $C_n:U^n \to \{0,1\}^*$ s.t. the average code length is less than $H+\varepsilon$ 
 
-\concept{Fixed-to-Fixed Length Source Codes} TODO
+\concept{Fixed-to-Fixed Length Source Codes} 
+Codes of type $U\to \{0,1\}^*$ or $U^n \to \{0,1\}^*$ are called \subconcept{fixed-to-variable} length codes, and all our designs have error free recovery of the source from its representation.
+We want \subconcept{Fixed-to-fixed} codes $C:U^n \to \{0,1\}^k$ ($2^k$ representations), to obtain efficient codes we will give up error free recovery replace this by recovery with very small prob. of error.
+The code assign binary representations only to a subset $S \subset U^n$ which ensure $Pr((u_1...u_n)\in S) \approx 1$ and $|S|\le 2^k$.
 
 % ------------
 \section{Typicality}
 
-\concept{Typicality} TODO
+\concept{Typicality}
+Given an alphabet $U$ and distribution $p$ in $U$.
+We have a source that produces iid letters $u_i$ with distribution $p$.
+We want a \subconcept{set $T_{n,\varepsilon} \subset U^n$}.
 
-\concept{Properties of Typical Sets} TODO
+\concept{Properties of Typical Sets} 
+\subconcept{1.} $Pr((u_1...u_n)\in T_{n,\varepsilon,p})\approx1$
+($\ge 1 - \frac{|U|}{n\varepsilon^2 p(u)}$).
+\subconcept{2.} $|T_{n,\varepsilon,p}| \le 2^{n(1+\varepsilon)H(u)}$
 
-\concept{Asymptotic Equipartition Property} TODO
+\concept{Asymptotic Equipartition Property}
+\subconcept{Def} AEP is a general property of the output samples of a stochastic source. It is fundamental to the concept of typical set used in theories of compression.
+\subconcept{Theorem} If $U_1,...U_n$ iid $\sim q$ and $(u_1...u_n) \in T_{n,\varepsilon,p}$ then $Pr((U_1...U_n)=(u_1...u_n))=\prod_{i=1}^n q(u_i)$.
+\subconcept{Corollary} $Pr(((U_1...U_n)=(u_1..u_n))\in T_{n,\varepsilon,p})=2^{-n(1\pm \varepsilon)D(p||q)}2^{\pm n\varepsilon H(p)}(1 \pm \varepsilon) \circeq 2^{-nD(p||q)}$.
+\subconcept{Consequently} If $(X_1,Y_1)...(X_n,Y_n)$ iid $p_X p_Y$ then $Pr(((X_1,Y_1)...(X_n,Y_n))\in T_{n,\varepsilon,p_{XY}}) \circeq 2^{-nI(X;Y)}$
 
-\concept{Source Coding by AEP} TODO
+\concept{Source Coding by AEP}
+\subconcept{1.} Assign to every member of $T_{n,\varepsilon,p}$ a distinct element of $\{0,1\}^*$. Call this $C:T_{n,\varepsilon,p} \to \{0,1\}^*$.
+\subconcept{2.} The source code is the following :Observe if $(U_1...U_n) \in T_{n,\varepsilon,p}$ represent it by 0 else by 1.
 
-\concept{Variable-to-Fixed Length Source Codes} TODO
+\concept{Variable-to-Fixed Length Source Codes}
+$\equiv$ Dual of Fixed-to-Variable length source coding
+$\equiv$ Dictionary to sed source coding
+\subconcept{Idea} Given an alphabet $U$, find a dictionary $D \subset U^*$, assign $\lceil log|D| \rceil$ bit binary representation to words in $D$, and then given $U_1U_2..$, parse it into $w_1,w_2...$ of dictionary words and represent each words by its binary description.
 
-\concept{Valid and Prefix-Free Dictionaries} TODO
+\concept{Valid and Prefix-Free Dictionaries} 
+The words of valid and PF dictionaries form the leaves of a complete dictionary tree.
 
-\concept{Relationship between word- and letter-entropies for valid, prefix-free dictionaries} TODO
-
+\concept{Relationship between word- and letter-entropies for valid, prefix-free dictionaries}
+nbr of bits/letter $=\frac{m\lceil log|D| \rceil}{length(W_1)+...+length(W_m)} \to \frac{\lceil log|D| \rceil}{E[length(W_1)]}$
+\subconcept{Lemma} Suppose $Z$ is non negative integer valued RV. Then $E[Z]=\sum_{n=0}^\infty Pr[Z>n]$.
+\subconcept{Observation} nbr of words = nbr of leaves in tree representation $=1+(|U|-1)$(nbr interior nodes).
 % --------------
 \section{Tunstall procedure}
 
-\concept{Tunstall procedure} TODO 
+\concept{Tunstall procedure} 
+\subconcept{1.} $D=U$ with $|U|$ words and one interior node (root).
+\subconcept{2.} While $|D|<M$ do :
+convert the most probable word/leaf into interior node and grow $|U|$ leaves from it.
 
-\concept{Analysis of Tunstall procedure} TODO
+\concept{Analysis of Tunstall procedure}
+\subconcept{Lemma} Suppose $D$ valid and PF dictionary and $U_1U_2...$ are iid. Then $H(W_1)=E[length(W_1)]H(U_1)$.
+\subconcept{Now} nbr of bits/letter $=\frac{\lceil log|D| \rceil}{E[length(W_1)]}=\frac{\lceil log|D| \rceil}{H(W_1)}H(U_1)$.
 
-\concept{Universal Source Coding} TODO
+\concept{Universal Source Coding} 
+\subconcept{Lemma} If $W$ is a RV taking values in $D$ and for each $w\in D$ $q p_0 \le Pr(W=w) \le q$. Then $\lceil log|D| \rceil - log\frac{1}{p_0} \le H(W) \le \lceil log|D| \rceil$.
+\subconcept{Corollary} Given $U$ and $p_U$, $\varepsilon > 0$ there exists a dictionary based code which $nbr of bits/letter \le H(U)(1+\varepsilon)$.
 
-\concept{Lempel–Ziv method} TODO 
+\concept{Lempel–Ziv method - Data compression}
+\subconcept{0.} Set $D=U$
+\subconcept{1.} Associate to each $w \in D$ a $\lceil log|D| \rceil$bit binary representation based on dictionry order.
+\subconcept{2.} Parse the next word $w$ from the source sequence using $D$, emit the representation of $w$.
+\subconcept{3.} Set $D \leftarrow (D\setminus \{w\})\cup \{wu:u \in U \}$.
+\subconcept{4.} Go to 1.
 
-\concept{Analysis of Lempel–Ziv} TODO
+\concept{Analysis of Lempel–Ziv} 
+\subconcept{Technique} Compare LZ to an adversary : 
+adversary knows before have $u_1u_2...$.
+designs a FSM to compress this sequence.
+And show LZ doas as well as the adversary.
 
-\concept{Information-Lossless FSM Compressors} TODO
 
-\concept{Lower bound on the output length of an IL FSM Compressor} TODO
+\concept{Information-Lossless FSM Compressors}
+A \subconcept{Finite-State-Machine} is 1. Set $S$ of states $|S|<\infty$.
+2. Initial special state $s_0 \in S$.
+3. Next state function $g:SxU \to S$.
+4. $f:SxU \to \{ 0,1 \}^*$.
+A \subconcept{legitimate} machine has to verify :
+$\forall s \in S \forall u_1...u_m \neq v_1...v_n$ if $g(s,u_1...u_m)=g(s,v_1...v_m) \Rightarrow f(s,u_1...u_m) \neq f(s,v_1...v_n)$.
+\subconcept{IL} A legitimate FSM is information-lossless.
 
-\concept{LZ Compressibility of sequences} TODO
+\concept{Lower bound on the output length of an IL FSM Compressor} 
+\subconcept{Fact} Suppose $m$ numbers $a_1...a_m \ge 0$ with $\sum_{i=1}^m a_i=k$.
+Then, $\sum_{i=1}^m a_i log \frac{a_i}{8} \ge k log \frac{k}{8m}$ (with eq. for $a_i=\frac{k}{m}$).
+
+\concept{LZ Compressibility of sequences} 
+\subconcept{Corollary} If $u_1u_2...$ is a stationary process with entropy rate $H$ then $E[p_{LZ(U_1U_2...)}] \le H$.
 
 \concept{Optimality of Lempel–Ziv} TODO
 
 % -----------
 \section{Channels}
 
-\concept{Communication Channels} TODO
+\concept{Communication Channels} 
+\subconcept{Def}
+$C=max_{P_X} I(X;Y)$.
+$P_{e,i}=Pr(U_i \neq V_i)$. 
+$\bar{P_e}=\frac{1}{L} \sum_{i=1}^L Pr(U_i \neq V_i)$
 
-\concept{Discrete Memoryless Channels} TODO
+\concept{Discrete Memoryless Channels} 
+A channel is said to be \subconcept{memoryless} if $Pr(Y_i=y|X_i=x_i,past)=Pr(Y_i=y|X_i=x_i)$
+\subconcept{Recall} $h_2(\alpha)=\alpha log( \frac{1}{\alpha})+(1-\alpha) log (\frac{1}{1-\alpha})$.
+\subconcept{Theorem "Bad news"} No matter how the encoder and decoder are designed, we have $h_2(\bar{P_e})+P_e log(|U|-1) \ge \tau_s (\frac{H}{\tau_s}-\frac{C}{\tau_c})$.
+\subconcept{Lemma} $h_2(\frac{1}{L} \sum_{i=1}^L p_i) \ge \frac{1}{L}\sum_{i=1}^L h_2(p_i)$
 
 \concept{Examples of Discrete Memoryless Channels (BSC and BEC)} TODO
 
@@ -262,7 +318,16 @@ $H(U)=\lim_{n \to \infty} \frac{1}{n}H(u_1...u_n)$ if the limit exists.
 			
 \concept{Proof of the Channel Coding Theorem} TODO
 
-\concept{Capacity of BSC and BEC } TODO
+\concept{Capacity of BSC and BEC } 
+\subconcept{Binary Symmetric Channel}
+$p(y|x)=
+ \{
+   \begin{array}{r c l}
+      1-\delta , x=y \\
+      \delta, else 
+   \end{array}$
+If we choose $p_X=(\frac{1}{2},\frac{1}{2})$
+
 
 \concept{Jensen's Inequality } TODO
 
